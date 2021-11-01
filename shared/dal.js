@@ -3,7 +3,7 @@ const { env } = require("process");
 
 // Fixme: Read from env
 const pool = mysql.createPool({
-  host: env.DB_HOSTNAME || "localhost",
+  host: env.DB_HOSTNAME,
   user: env.DB_USERNAME,
   database: env.DB_DATABASE,
   password: env.DB_PASSWORD,
