@@ -13,8 +13,10 @@ services:
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         restart: always
+        depends_on:
+            - mysqldb
         environment:
-            PMA_HOST: db
+            PMA_HOST: mysqldb
             PMA_USER: root
             PMA_PASSWORD: password@123
         ports:
@@ -26,6 +28,19 @@ services:
             dockerfile: api/Dockerfile
         ports:
             - "8000:80"
+        depends_on:
+            - mysqldb
+        environment:
+            DB_PORT: 3306
+            DB_HOSTNAME: mysqldb
+            DB_USERNAME: root
+            DB_DATABASE: testvals
+            DB_PASSWORD: password@123
+    workers:
+        restart: always
+        build:
+            context: .
+            dockerfile: workers/Dockerfile
         depends_on:
             - mysqldb
         environment:
