@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   password: env.DB_PASSWORD,
   waitForConnections: true,
   connectionLimit: 10,
-  port: env.DB_PORT || 3306,
+  port: env.DB_PORT,
 });
 
 const tearDown = function () {
@@ -23,7 +23,7 @@ const getCurrentValue = async function (id) {
     `SELECT value from ${TABLE_NAME} WHERE id = "${id}"`
   );
 
-  return result ? result[0] : null;
+  return result[0];
 };
 
 const updateValue = async function (id, value) {
