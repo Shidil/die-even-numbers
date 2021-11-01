@@ -18,6 +18,7 @@ Data<Key, Value> key=string:0-100, value = number
 ### Table `values`
 
 | column | type |
+|--------|------|
 | id | int |
 
 ## Run
