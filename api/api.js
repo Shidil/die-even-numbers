@@ -6,15 +6,15 @@ app.use(express.json());
 
 // POST /do-stuff takes randomId as input
 app.post("/do-stuff", async function (req, res) {
-    const params = req.body;
-    const result = await doStuff(params.id);
+  const params = req.body;
+  const result = await doStuff(params.id);
 
-    res.json({
-        success: true,
-        result,
-    });
+  res.json({
+    success: true,
+    result,
+  });
 });
 
 module.exports = {
-    app,
+  app,
 };

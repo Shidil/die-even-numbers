@@ -47,5 +47,5 @@ module.exports = {
   insertValue,
   tearDown,
   getConnection: async () => pool.getConnection(),
-  tableName: TABLE_NAME
+  tableName: TABLE_NAME,
 };
