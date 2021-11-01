@@ -1,0 +1,30 @@
+name: Build on merge
+
+on: ["push", "pull_request"]
+
+jobs:
+  build_test:
+    name: Build containers and unit test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: npm install
+        run: npm install
+      - name: build containers
+        run: docker-compose build
+      - name: execute containers, start db
+        run: docker-compose up -d
+      - name: run tests
+        run: npm test
+        env:
+          DB_USERNAME: "root"
+          DB_DATABASE: "testvals"
+          DB_PASSWORD: "password@123"
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
