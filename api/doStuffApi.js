@@ -1,5 +1,5 @@
-const { getCurrentValue, updateValue } = require("../shared/dal/dal");
-const { increment } = require("./increment");
+const { getCurrentValue, updateValue } = require("../shared/dal");
+const { increment } = require("../shared/increment");
 
 const doStuff = async function (id) {
     const current = await getCurrentValue(id);
