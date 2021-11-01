@@ -13,5 +13,18 @@ API
 /do-stuff-with-id ( takes random_id as input)
     returns the value? TBD
 
-Data<Key, Value> key=string | number, value = number
+Data<Key, Value> key=string:0-100, value = number
 
+
+## Database Schema
+
+### Table `values`
+
+| column | type |
+| id     | int  |
+
+
+## TODO
+
+- DO cronjob
+- Handle case for inserting into db where row for id does not exist
