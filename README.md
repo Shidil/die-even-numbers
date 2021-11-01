@@ -30,6 +30,7 @@ Package manager in use is [npm](https://npmjs.org)
 ├── workers (cronjob tasks)
 ├── seed (database seed dumps)
 ├── shared (libraries)
+```
 
 ## Run
 
