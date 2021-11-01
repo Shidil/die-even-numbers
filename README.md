@@ -4,46 +4,51 @@
 - While that is happening, a cron job should go through all the existing IDs and remove IDs that have a count of greater than 10 and are currently an even number (including 10).
 - Write tests to make sure your API and cronjob work
 
-
 Cron job - 10s interval
-
 
 API
 
 /do-stuff-with-id ( takes random_id as input)
-    returns the value? TBD
+returns the value? TBD
 
 Data<Key, Value> key=string:0-100, value = number
-
 
 ## Database Schema
 
 ### Table `values`
 
 | column | type |
-| id     | int  |
-
-
-## TODO
-
-- DO cronjob
-- Handle case for inserting into db where row for id does not exist
+| id | int |
 
 ## Run
 
 ```bash
 docker-compose build
 docker compose up
+
+# test api
+curl -X POST http://localhost:8000/do-stuff -H 'Content-Type: application/json' -d "{\"id\": \"test_rec\"}" # result 1
+
+curl -X POST http://localhost:8000/do-stuff -H 'Content-Type: application/json' -d "{\"id\": \"test_rec\"}" # result 2
+
+curl -X POST http://localhost:8000/do-stuff -H 'Content-Type: application/json' -d "{\"id\": \"test_rec\"}" # result 3
 ```
 
-## Test api
+## Tests
 
-```curl
-curl -X POST http://localhost:8000/do-stuff -H 'Content-Type: application/json' -d "{\"id\": \"test_rec\"}"
-{"success":true,"result":21}
+```bash
+# set environment variables for DB_USERNAME, DB_PASSWORD and DB_DATABASE
+export DB_USERNAME=root
+export DB_PASSWORD=<password>
+export DB_DATABASE=<db-name>
 
-# or set environment variables for DB_USERNAME, DB_PASSWORD and DB_DATABASE
-# then
+# then run
 npx jest
 
+
 ```
+
+## TODO
+
+- [ ] Cron job to delete values that are >=10 and is even number (every 10 seconds)
+- [ ] e2e tests for cron job
