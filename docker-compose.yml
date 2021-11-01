@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+    mysqldb:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: password@123
+            MYSQL_DATABASE: testvals
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./seed:/docker-entrypoint-initdb.d
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        environment:
+            PMA_HOST: db
+            PMA_USER: root
+            PMA_PASSWORD: password@123
+        ports:
+            - "8080:80"
+    api:
+        restart: always
+        build:
+            context: .
+            dockerfile: api/Dockerfile
+        ports:
+            - "8000:80"
+        depends_on:
+            - mysqldb
+        environment:
+            DB_PORT: 3306
+            DB_HOSTNAME: mysqldb
+            DB_USERNAME: root
+            DB_DATABASE: testvals
+            DB_PASSWORD: password@123

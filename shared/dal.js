@@ -1,13 +1,15 @@
 const mysql = require("mysql2/promise");
+const { env } = require("process");
 
 // Fixme: Read from env
 const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    database: "randIdsdostuff",
-    password: "password@123",
+    host: env.DB_HOSTNAME || "localhost",
+    user: env.DB_USERNAME,
+    database: env.DB_DATABASE,
+    password: env.DB_PASSWORD,
     waitForConnections: true,
     connectionLimit: 10,
+    port: env.DB_PORT || 3306,
 });
 
 const tearDown = function () {

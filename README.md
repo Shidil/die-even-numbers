@@ -28,3 +28,22 @@ Data<Key, Value> key=string:0-100, value = number
 
 - DO cronjob
 - Handle case for inserting into db where row for id does not exist
+
+## Run
+
+```bash
+docker-compose build
+docker compose up
+```
+
+## Test api
+
+```curl
+curl -X POST http://localhost:8000/do-stuff -H 'Content-Type: application/json' -d "{\"id\": \"test_rec\"}"
+{"success":true,"result":21}
+
+# or set environment variables for DB_USERNAME, DB_PASSWORD and DB_DATABASE
+# then
+npx jest
+
+```
