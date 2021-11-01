@@ -10,7 +10,6 @@ Cron job - 10s interval
 
 POST `/do-stuff`  body: `{ id: string }` response: { success: boolean, result: number}`
 
-
 ## Database Schema
 
 Data<Key, Value> key=string:0-100, value = number
@@ -21,6 +20,16 @@ Data<Key, Value> key=string:0-100, value = number
 |--------|------|
 | id | varchar(10) |
 | value | int |
+
+## Project Structure
+
+Package manager in use is [npm](https://npmjs.org)
+
+```bash
+├── api (api using express)
+├── workers (cronjob tasks)
+├── seed (database seed dumps)
+├── shared (libraries)
 
 ## Run
 
