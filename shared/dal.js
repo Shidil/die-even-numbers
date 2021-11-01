@@ -1,45 +1,33 @@
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
 // Fixme: Read from env
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: "localhost",
     user: "root",
     database: "randIdsdostuff",
     password: "password@123",
+    waitForConnections: true,
+    connectionLimit: 10,
 });
 
-// TODO: close connection
+const tearDown = function () {
+    pool.end();
+};
 
 const TABLE_NAME = "values_rec";
 
 const getCurrentValue = async function (id) {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            `SELECT value from \`${TABLE_NAME}\` WHERE \`id\` = "${id}"`,
-            (err, results) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(results ? results[0] : null);
-                }
-            }
-        );
-    });
+    const [result] = await pool.query(
+        `SELECT value from \`${TABLE_NAME}\` WHERE \`id\` = "${id}"`
+    );
+
+    return result ? result[0] : null;
 };
 
-const updateValue = function (id, value) {
-    return new Promise((resolve, reject) => {
-        connection.query(
-            `UPDATE \`${TABLE_NAME}\` SET \`value\` = ${value}  WHERE \`id\` = "${id}"`,
-            (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(true);
-                }
-            }
-        );
-    });
+const updateValue = async function (id, value) {
+    await pool.query(
+        `UPDATE \`${TABLE_NAME}\` SET \`value\` = ${value}  WHERE \`id\` = "${id}"`
+    );
 };
 
 // TODO insert
@@ -47,4 +35,5 @@ const updateValue = function (id, value) {
 module.exports = {
     getCurrentValue,
     updateValue,
+    tearDown,
 };
