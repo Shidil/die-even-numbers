@@ -1,20 +1,20 @@
 {
-  "name": "round-1-test",
+  "name": "die-even-numbers",
   "version": "1.0.0",
   "description": "- Create an API that takes a random ID and increments a number in a db against that ID. If the current number against that ID is even, it will add 3 to the number, otherwise, it will add 1 to the number. - While that is happening, a cron job should go through all the existing IDs and remove IDs that have a count of greater than 10 and are currently an even number (including 10). - Write tests to make sure your API and cronjob work",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "mysql2": "^2.3.2",
-    "node-cron": "^3.0.0"
+    "express": "4.17.1",
+    "mysql2": "2.3.2",
+    "node-cron": "3.0.0"
   },
   "devDependencies": {
-    "jest": "^27.3.1",
-    "supertest": "^6.1.6"
+    "jest": "27.3.1",
+    "supertest": "6.1.6"
   }
 }
