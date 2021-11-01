@@ -1,14 +1,16 @@
 const express = require("express");
-// const db = require("../shared/dal");
+const bodyParser = require("body-parser");
 const { doStuff } = require("./doStuffApi");
 const app = express();
 
+app.use(express.json());
+
 // POST /do-stuff takes randomId as input
-app.post("/do-stuff", function (req, res) {
+app.post("/do-stuff", async function (req, res) {
     const params = req.body;
 
     // get current value from db
-    const result = doStuff(params.id);
+    const result = await doStuff(params.id);
 
     res.json({
         success: true,
@@ -16,8 +18,6 @@ app.post("/do-stuff", function (req, res) {
     });
 });
 
-var server = app.listen(8000, function () {
-    console.log("Listening on 8000 :)");
-});
-
-// TODO: call db.tearDown on server end
+module.exports = {
+    app,
+};
