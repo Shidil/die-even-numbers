@@ -6,16 +6,16 @@
 
 Cron job - 10s interval
 
-API
+## API
 
-/do-stuff-with-id ( takes random_id as input)
-returns the value? TBD
+POST `/do-stuff`  body: `{ id: string }` response: { success: boolean, result: number}`
 
-Data<Key, Value> key=string:0-100, value = number
 
 ## Database Schema
 
-### Table `values`
+Data<Key, Value> key=string:0-100, value = number
+
+### Table `values_rec`
 
 | column | type |
 |--------|------|
@@ -46,8 +46,6 @@ export DB_DATABASE=<db-name>
 
 # then run
 npx jest
-
-
 ```
 
 ## TODO
