@@ -12,12 +12,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: npm install
-        run: npm install
       - name: build containers
         run: docker-compose build
       - name: execute containers, start db
         run: docker-compose up -d
+      - name: npm install
+        run: npm install
+      - name: Sleep for 10 seconds
+        run: sleep 10s
+        shell: bash
       - name: run tests
         run: npm test
         env:
