@@ -3,10 +3,6 @@
 
 const { getCurrentValue, updateValue, tearDown } = require("./dal");
 
-const getRandomInt = function (limit = 1000) {
-    return Math.floor(Math.random() * limit);
-};
-
 describe("dal tests. FIXME: use mocks", () => {
     afterAll(() => {
         tearDown();
