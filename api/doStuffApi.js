@@ -1,11 +1,17 @@
-const { getCurrentValue, updateValue } = require("../shared/dal");
+const { getCurrentValue, updateValue, insertValue } = require("../shared/dal");
 const { increment } = require("../shared/increment");
 
 const doStuff = async function (id) {
-    const current = await getCurrentValue(id);
-    const nextValue = increment(current ? current.value : null);
+    const record = await getCurrentValue(id);
+    const current = record ? record.value : null;
+    const nextValue = increment(current);
 
-    await updateValue(id, nextValue);
+    if (typeof current !== "number") {
+        await insertValue(id, nextValue);
+    } else {
+        await updateValue(id, nextValue);
+    }
+
     return nextValue;
 };
 

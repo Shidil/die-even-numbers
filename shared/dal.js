@@ -20,7 +20,7 @@ const TABLE_NAME = "values_rec";
 
 const getCurrentValue = async function (id) {
     const [result] = await pool.query(
-        `SELECT value from \`${TABLE_NAME}\` WHERE \`id\` = "${id}"`
+        `SELECT value from ${TABLE_NAME} WHERE id = "${id}"`
     );
 
     return result ? result[0] : null;
@@ -28,7 +28,14 @@ const getCurrentValue = async function (id) {
 
 const updateValue = async function (id, value) {
     await pool.query(
-        `UPDATE \`${TABLE_NAME}\` SET \`value\` = ${value}  WHERE \`id\` = "${id}"`
+        `UPDATE ${TABLE_NAME} SET value = ${value}  WHERE id = "${id}"`
+    );
+};
+
+// INSERT INTO values_rec(id, value) VALUES ('[value-1]',10)
+const insertValue = async function (id, value) {
+    await pool.query(
+        `INSERT INTO ${TABLE_NAME}(id, value) VALUES('${id}', ${value})`
     );
 };
 
@@ -37,5 +44,6 @@ const updateValue = async function (id, value) {
 module.exports = {
     getCurrentValue,
     updateValue,
+    insertValue,
     tearDown,
 };
