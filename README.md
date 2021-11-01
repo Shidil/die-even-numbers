@@ -19,7 +19,8 @@ Data<Key, Value> key=string:0-100, value = number
 
 | column | type |
 |--------|------|
-| id | int |
+| id | varchar(10) |
+| value | int |
 
 ## Run
 
