@@ -17,3 +17,14 @@ jobs:
           node-version: 14
       - name: build container
         run: docker build -t builtapi -f ./api/Dockerfile .
+  workers:
+    name: Build workers container
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: build container
+        run: docker build -t builtworkers -f ./workers/Dockerfile .
