@@ -7,7 +7,7 @@ services:
             MYSQL_ROOT_PASSWORD: password@123
             MYSQL_DATABASE: testvals
         ports:
-            - "3306:3306"
+            - "8001:3306"
         volumes:
             - ./seed:/docker-entrypoint-initdb.d
     phpmyadmin:
@@ -31,7 +31,7 @@ services:
         depends_on:
             - mysqldb
         environment:
-            DB_PORT: 3306
+            DB_PORT: 8001
             DB_HOSTNAME: mysqldb
             DB_USERNAME: root
             DB_DATABASE: testvals
@@ -44,7 +44,7 @@ services:
         depends_on:
             - mysqldb
         environment:
-            DB_PORT: 3306
+            DB_PORT: 8001
             DB_HOSTNAME: mysqldb
             DB_USERNAME: root
             DB_DATABASE: testvals
