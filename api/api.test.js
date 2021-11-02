@@ -31,6 +31,10 @@ describe("/get-value", () => {
         expect(res.body.result).toEqual(value);
       });
   });
+
+  test("sql injection", async () => {
+    await request(app).get("/get-value?id=xx;SELECT *").expect(200);
+  });
 });
 
 const getValueById = async (id) => {
@@ -87,6 +91,10 @@ describe("/increment-value ", () => {
 
     // assert
     expect(await getValueById(randId)).toBe(nextValue);
+  });
+
+  test("sql injection", async () => {
+    await request(app).get("/get-value?id=xx;SELECT *").expect(200);
   });
 });
 
