@@ -1,7 +1,6 @@
 const db = require("../shared/dal");
+const { getRandomId } = require("../shared/getRandomId");
 const { remove10PlusEven } = require("./remove10PlusEven");
-
-const getRandomId = () => `test_rec_${Math.random()}`;
 
 describe("remove10PlusEven", () => {
   // even and greater than or equal to 10
