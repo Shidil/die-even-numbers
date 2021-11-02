@@ -66,5 +66,7 @@ npx jest
 
 - [x] Cron job to delete values that are >=10 and is even number (every 10 seconds)
 - [x] Unit tests
+- [ ] Handle concurrency in api calls
+- [ ] Concurrency with cron job
 - [ ] e2e tests for cron job
 - [ ] use mocks for unit testing db module
