@@ -12,7 +12,7 @@ Cron job - 10s interval
 
 ## API
 
-POST `/do-stuff`  body: `{ id: string }` response: { success: boolean, result: number}`
+POST `/do-stuff`  body: `{ id: string }` response: { success: boolean }`
 
 ## Database Schema
 

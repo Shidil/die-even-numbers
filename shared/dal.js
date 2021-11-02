@@ -26,6 +26,10 @@ const getCurrentValue = async function (id) {
   return result[0];
 };
 
+const incrementValue = async function (id) {
+  await pool.query(`call sp_incrementValue("${id}")`);
+};
+
 const updateValue = async function (id, value) {
   await pool.query(
     `UPDATE ${TABLE_NAME} SET value = ${value}  WHERE id = "${id}"`
@@ -46,6 +50,7 @@ module.exports = {
   updateValue,
   insertValue,
   tearDown,
+  incrementValue,
   getConnection: async () => pool.getConnection(),
   tableName: TABLE_NAME,
 };
