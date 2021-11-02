@@ -7,7 +7,7 @@ services:
             MYSQL_ROOT_PASSWORD: password@123
             MYSQL_DATABASE: testvals
         ports:
-            - "8001:3306"
+            - "3306:3306"
         volumes:
             - ./seed:/docker-entrypoint-initdb.d
     api:
@@ -20,7 +20,6 @@ services:
         depends_on:
             - mysqldb
         environment:
-            DB_PORT: 8001
             DB_HOSTNAME: mysqldb
             DB_USERNAME: root
             DB_DATABASE: testvals
@@ -33,8 +32,18 @@ services:
         depends_on:
             - mysqldb
         environment:
-            DB_PORT: 8001
             DB_HOSTNAME: mysqldb
             DB_USERNAME: root
             DB_DATABASE: testvals
             DB_PASSWORD: password@123
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        depends_on:
+            - mysqldb
+        environment:
+            PMA_HOST: mysqldb
+            PMA_USER: root
+            PMA_PASSWORD: password@123
+        ports:
+            - "8002:80"
