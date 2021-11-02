@@ -43,7 +43,7 @@ describe("remove10PlusEven", () => {
     // execute suspect method
     await remove10PlusEven();
 
-    // verify aftermath, bystanders remain where victims are removed
+    // verify aftermath, bystanders remain 
     result = await Promise.all(
       bystanders.map(async (x) => {
         const res = await db.getCurrentValue(x.id);
@@ -52,6 +52,7 @@ describe("remove10PlusEven", () => {
     );
     expect(result.every((x) => x === true)).toBe(true);
 
+    // victims are removed
     result = await Promise.all(
       victims.map(async (x) => {
         const res = await db.getCurrentValue(x.id);
@@ -60,6 +61,5 @@ describe("remove10PlusEven", () => {
     );
 
     expect(result.every((x) => x === true)).toBe(true);
-
   });
 });

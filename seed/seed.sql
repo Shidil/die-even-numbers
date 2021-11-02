@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysqldb
--- Generation Time: Nov 02, 2021 at 10:38 AM
+-- Generation Time: Nov 02, 2021 at 12:19 PM
 -- Server version: 8.0.25
 -- PHP Version: 7.4.20
 
@@ -33,6 +33,13 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_incrementValue` (IN `IN_ROW_ID` VARCHAR(
   ELSE 
     INSERT `values_rec`(`id`, `value`) VALUES (IN_ROW_ID, 1);
   END IF;
+  COMMIT;
+END$$
+
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_removeNPlusEven` (IN `IN_LIMIT` INT)  BEGIN
+	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+	START TRANSACTION;
+DELETE FROM `values_rec` WHERE `value` >= IN_LIMIT AND `value` % 2 = 0;
   COMMIT;
 END$$
 
