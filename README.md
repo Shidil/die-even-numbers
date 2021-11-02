@@ -43,6 +43,20 @@ CREATE DEFINER=`root`@`%` PROCEDURE `sp_incrementValue` (IN `IN_ROW_ID` VARCHAR(
   END IF;
   COMMIT;
 END$$
+
+```
+
+#### sp_removeNPlusEven
+
+Remove rows with value >= N(`IN_LIMIT`) and is even
+
+```sql
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_removeNPlusEven` (IN `IN_LIMIT` INT)  BEGIN
+  SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+  START TRANSACTION;
+DELETE FROM `values_rec` WHERE `value` >= IN_LIMIT AND `value` % 2 = 0;
+  COMMIT;
+END$$
 ```
 
 ## Project Structure
