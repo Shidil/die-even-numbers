@@ -7,6 +7,14 @@ const increment = function (currentValue) {
   return isEven ? currentValue + 3 : currentValue + 1;
 };
 
+// https://qr.ae/pGxLs3
+// (1+(−1)n2)+2n
+const findNthValue = function (n) {
+  const pos = n - 1;
+  return (1 + Math.pow(-1, pos)) / 2 + 2 * pos;
+};
+
 module.exports = {
   increment,
+  findNthValue,
 };
