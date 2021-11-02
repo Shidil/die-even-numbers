@@ -25,6 +25,26 @@ Data<Key, Value> key=string:0-100, value = number
 | id | varchar(10) |
 | value | int |
 
+### Stored procedures
+
+#### sp_incrementValue
+
+Contains core logic of the application's increment method.
+If current value for row with id `IN_ROW_ID` is odd, then incremented by 1 or by 3
+
+```sql
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_incrementValue` (IN `IN_ROW_ID` VARCHAR(100))  BEGIN
+  SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+  START TRANSACTION;
+  IF EXISTS (SELECT 1 FROM `values_rec` WHERE `id` = IN_ROW_ID FOR UPDATE) THEN
+    UPDATE `values_rec` SET `value` = CASE WHEN `value` % 2 = 0 THEN `value` + 3 ELSE `value` + 1 END WHERE `id` = IN_ROW_ID;
+  ELSE 
+    INSERT `values_rec`(`id`, `value`) VALUES (IN_ROW_ID, 1);
+  END IF;
+  COMMIT;
+END$$
+```
+
 ## Project Structure
 
 Package manager in use is [npm](https://npmjs.org)

@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Generation Time: Nov 01, 2021 at 08:35 AM
+-- Host: mysqldb
+-- Generation Time: Nov 02, 2021 at 10:38 AM
 -- Server version: 8.0.25
 -- PHP Version: 7.4.20
 
@@ -21,6 +21,23 @@ SET time_zone = "+00:00";
 -- Database: `testvals`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_incrementValue` (IN `IN_ROW_ID` VARCHAR(100))  BEGIN
+	SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+	START TRANSACTION;
+  IF EXISTS (SELECT 1 FROM `values_rec` WHERE `id` = IN_ROW_ID FOR UPDATE) THEN
+    UPDATE `values_rec` SET `value` = CASE WHEN `value` % 2 = 0 THEN `value` + 3 ELSE `value` + 1 END WHERE `id` = IN_ROW_ID;
+  ELSE 
+    INSERT `values_rec`(`id`, `value`) VALUES (IN_ROW_ID, 1);
+  END IF;
+  COMMIT;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -33,13 +50,6 @@ CREATE TABLE `values_rec` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `values_rec`
---
-
-INSERT INTO `values_rec` (`id`, `value`) VALUES
-('test_rec', 10);
-
---
 -- Indexes for dumped tables
 --
 
@@ -49,6 +59,10 @@ INSERT INTO `values_rec` (`id`, `value`) VALUES
 ALTER TABLE `values_rec`
   ADD PRIMARY KEY (`id`);
 COMMIT;
+
+CALL sp_incrementValue("test_rec"); /* 1 */
+CALL sp_incrementValue("test_rec_2"); /* 1 */
+CALL sp_incrementValue("test_rec_2"); /* 2 */
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
