@@ -26,4 +26,15 @@ describe("findNthValue", () => {
   test("51st value is 101", () => {
     expect(findNthValue(51)).toBe(101);
   });
+
+  test("edge cases", () => {
+    expect(findNthValue(0)).toBe(0);
+    expect(findNthValue(-594)).toBe(0);
+  });
+
+  test('different input types', () => {
+    expect(findNthValue(null)).toBe(0);
+    expect(findNthValue('null')).toBe(0);
+    expect(findNthValue(NaN)).toBe(0);
+  })
 });
