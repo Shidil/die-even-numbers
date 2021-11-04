@@ -1,4 +1,4 @@
-const { increment } = require("./increment");
+const { increment, findNthValue } = require("./increment");
 
 describe("increment", () => {
   test("increments even value by 3", () => {
@@ -12,4 +12,29 @@ describe("increment", () => {
   test("invalid input gets treated as 1", () => {
     expect(increment(null)).toBe(1);
   });
+});
+
+describe("findNthValue", () => {
+  test("starts with 1", () => {
+    expect(findNthValue(1)).toBe(1);
+  });
+
+  test("1 2 5 6 9 and next is 10", () => {
+    expect(findNthValue(6)).toBe(10);
+  });
+
+  test("51st value is 101", () => {
+    expect(findNthValue(51)).toBe(101);
+  });
+
+  test("edge cases", () => {
+    expect(findNthValue(0)).toBe(0);
+    expect(findNthValue(-594)).toBe(0);
+  });
+
+  test('different input types', () => {
+    expect(findNthValue(null)).toBe(0);
+    expect(findNthValue('null')).toBe(0);
+    expect(findNthValue(NaN)).toBe(0);
+  })
 });
