@@ -1,0 +1,24 @@
+config:
+  target: "http://localhost:8000"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: Warm up
+    - duration: 30
+      arrivalRate: 15
+      rampTo: 50
+      name: Ramp up load
+    - duration: 240
+      arrivalRate: 500
+      name: Sustained load
+
+scenarios:
+  - name: "Increment and lookup record"
+    flow:
+      - post:
+          url: "/increment-value"
+          json:
+            id: "test_rec_xx"
+      - think: 0.5
+      - get:
+          url: "/get-value?id=test_rec_xx"
