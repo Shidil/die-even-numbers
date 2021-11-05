@@ -1,11 +1,9 @@
-const { getConnection, tableName } = require("../shared/dal");
+const { getConnection } = require("../shared/dal");
 
 const remove10PlusEven = async function () {
   const connection = await getConnection();
 
-  await connection.query(
-    `DELETE FROM ${tableName} WHERE value >= 10 AND value % 2 = 0`
-  );
+  await connection.query(`call sp_removeNPlusEven(10)`);
 
   connection.release();
 };
