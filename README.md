@@ -12,7 +12,9 @@ Cron job - 10s interval
 
 ## API
 
-POST `/do-stuff`  body: `{ id: string }` response: { success: boolean }`
+POST `/increment-value`  body: `{ id: string }` response: { success: boolean }`
+
+GET `/get-value`  query: `{ id: string }` response: { success: boolean, result: number }`
 
 ## Database Schema
 
@@ -94,6 +96,9 @@ export DB_DATABASE=<db-name>
 
 # then run
 npx jest
+
+# Load testing
+artillery run load-test.yml
 ```
 
 ## TODO
